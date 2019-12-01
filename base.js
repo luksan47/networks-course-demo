@@ -4,6 +4,11 @@ function run (cy, eh) {
   create_server(cy, 5, 3);
   create_server(cy, 3, 6);
   add_random_connections(cy);
+  add_random_connections(cy);
+  add_random_connections(cy);
+  add_random_connections(cy);
+  add_random_connections(cy);
+  slra(cy);
 }
 
 // initialising the graph

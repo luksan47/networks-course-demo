@@ -18,17 +18,30 @@ function add_random_connections(cy) {
     var source_id = Math.floor(Math.random() * nodes.length);
     var target_id = Math.floor(Math.random() * nodes.length);
     target_id = target_id == source_id ? (target_id + 1) % nodes.length : target_id;
-    var source = nodes[source_id].data('id');
-    var target = nodes[target_id].data('id');
 
-    var eles = cy.add({ group: 'edges', data: { id: 'edge_' + number_of_edges, source: source, target: target } });
+    var eles = cy.add({
+        group: 'edges',
+        data: {
+            id: 'edge_' + number_of_edges,
+            source: nodes[source_id].data('id'),
+            target: nodes[target_id].data('id')
+        }
+    });
     number_of_edges++;
     return eles;
 }
 
+
+
 function create_server(cy, num_nodes, free_space) {
     var server = 'server_' + server_id;
-    var server_node = [{ data: { id: server }}];
+    var server_node = {
+        data: {
+            id: server,
+            capacity : num_nodes + free_spaces,
+            current_size : num_nodes
+        }
+    };
     var nodes = [];
     var free_nodes = [];
     var y_position = 0;
