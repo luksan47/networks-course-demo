@@ -38,7 +38,7 @@ function create_server(cy, num_nodes, free_space) {
     var server_node = {
         data: {
             id: server,
-            capacity : num_nodes + free_spaces,
+            capacity : num_nodes + free_space,
             current_size : num_nodes
         }
     };
