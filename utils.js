@@ -68,12 +68,14 @@ function create_server(cy, num_nodes, free_space) {
             y_position += y_distance;
         }
     }
-    cy.add(server_node);
+    var server_eles = cy.add(server_node);
     var node_eles = cy.add(nodes);
     var free_eles = cy.add(free_nodes);
     cy.fit();
+    server_eles.style('events','no');
     node_eles.style('background-color', 'green');
     free_eles.style('background-color', 'grey');
+    free_eles.style('events','no');
     increment_stats();
 }
 
