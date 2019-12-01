@@ -1,0 +1,28 @@
+{
+  "name": "networks-course-demo",
+  "version": "1.0.0",
+  "description": "To initialise the project, run `npm install` and open `index.html` in your browser.",
+  "main": "base.js",
+  "dependencies": {
+    "cytoscape": "^3.12.1",
+    "cytoscape-edgehandles": "^3.6.0",
+    "heap": "^0.2.6",
+    "lodash.debounce": "^4.0.8",
+    "lodash.memoize": "^4.1.2",
+    "lodash.throttle": "^4.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luksan47/networks-course-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luksan47/networks-course-demo/issues"
+  },
+  "homepage": "https://github.com/luksan47/networks-course-demo#readme"
+}
