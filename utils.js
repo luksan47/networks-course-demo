@@ -2,14 +2,28 @@ const y_distance = 50;
 const x_distance = 50;
 var server_id = 0;
 var x_position = 0;
+var number_of_edges = 0;
 
 function increment_stats(){ 
     server_id++;
     x_position += x_distance * 2;
 }
 
-function add_random_connections(eles) {
+function add_random_connections(cy) {
+    // Get the nodes of the servers.
+    var nodes = cy.filter(function(element, i){
+        return element.isNode() && element.isChild() && element.data('used');
+    });
     
+    var source_id = Math.floor(Math.random() * nodes.length);
+    var target_id = Math.floor(Math.random() * nodes.length);
+    target_id = target_id == source_id ? (target_id + 1) % nodes.length : target_id;
+    var source = nodes[source_id].data('id');
+    var target = nodes[target_id].data('id');
+
+    var eles = cy.add({ group: 'edges', data: { id: 'edge_' + number_of_edges, source: source, target: target } });
+    number_of_edges++;
+    return eles;
 }
 
 function create_server(cy, num_nodes, free_space) {
@@ -24,6 +38,7 @@ function create_server(cy, num_nodes, free_space) {
             data: { 
                 id: server + '_node_' + i, 
                 parent: server,
+                used : i < num_nodes
             },
             position: { 
                 x: x_position,

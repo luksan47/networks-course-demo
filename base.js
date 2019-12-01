@@ -3,6 +3,7 @@ function run (cy, eh) {
   create_server(cy, 8, 3);
   create_server(cy, 5, 3);
   create_server(cy, 3, 6);
+  add_random_connections(cy);
 }
 
 // initialising the graph
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     layout: {
       name: 'preset',
-      fit: true
+      fit: true,
     },
 
     style: [
