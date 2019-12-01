@@ -1,5 +1,7 @@
-function add_edge_with_slra(cy) {
+function add_random_edge(cy) {
   add_random_connections(cy);
+}
+function run_slra(cy) {
   slra(cy);
 }
 // main function
@@ -99,9 +101,12 @@ document.addEventListener('DOMContentLoaded', function(){
   run(cy, eh);
 });
 
+document.getElementById("add_edge").addEventListener("click", function (e) {
+  add_random_edge(cy);
+})
 document.getElementById("slra").addEventListener("click", function (e) {
   document.getElementById("slra").disabled = true;
-  add_edge_with_slra(cy);
+  run_slra(cy);
   setTimeout(() => {
     document.getElementById("slra").disabled = false;
   }, 1000);
