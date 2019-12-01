@@ -31,8 +31,6 @@ function add_random_connections(cy) {
     return eles;
 }
 
-
-
 function create_server(cy, num_nodes, free_space) {
     var server = 'server_' + server_id;
     var server_node = {
@@ -77,4 +75,15 @@ function create_server(cy, num_nodes, free_space) {
     node_eles.style('background-color', 'green');
     free_eles.style('background-color', 'grey');
     increment_stats();
+}
+
+function get_free_nodes(server, num) {
+    var free_nodes = [];
+    server.children().forEach(node => {
+        if (!node.data('used')) {
+            free_nodes.push(node);
+        }
+    });
+    
+    return free_nodes.slice(0, num);
 }

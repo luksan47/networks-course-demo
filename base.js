@@ -1,20 +1,18 @@
+function add_edge_with_slra(cy) {
+  add_random_connections(cy);
+  slra(cy);
+}
 // main function
 function run (cy, eh) {
   create_server(cy, 8, 3);
   create_server(cy, 5, 3);
   create_server(cy, 3, 6);
-  add_random_connections(cy);
-  add_random_connections(cy);
-  add_random_connections(cy);
-  add_random_connections(cy);
-  add_random_connections(cy);
-  slra(cy);
 }
-
+var cy;
 // initialising the graph
 document.addEventListener('DOMContentLoaded', function(){
 
-  var cy = window.cy = cytoscape({
+  cy = window.cy = cytoscape({
     container: document.getElementById('cy'),
 
     layout: {
@@ -99,4 +97,12 @@ document.addEventListener('DOMContentLoaded', function(){
   var eh = cy.edgehandles();
 
   run(cy, eh);
+});
+
+document.getElementById("slra").addEventListener("click", function (e) {
+  document.getElementById("slra").disabled = true;
+  add_edge_with_slra(cy);
+  setTimeout(() => {
+    document.getElementById("slra").disabled = false;
+  }, 1000);
 });
