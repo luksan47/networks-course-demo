@@ -31,6 +31,7 @@ function move(cy, nodes, server) {
             duration : 1000,
             complete : function name() {
                 nodes[i].move({'parent' : server.data('id')});
+                nodes[i].style({'background-color' : 'green'})
                 ele.style({'background-color' : 'grey'})
             }
         });
@@ -41,7 +42,7 @@ function move(cy, nodes, server) {
 // Small-Large-Rebalance Algorithm
 function slra(cy) {
     var edges = cy.edges();
-    edges.slice(0,1).forEach(edge => {
+    edges.forEach(edge => {
         var u, v;
         // Assume w.l.o.g that the component of u is smaller than v's
         if (is_smaller(cy, edge)) {
@@ -64,6 +65,8 @@ function slra(cy) {
             // If the server of v has available capacity that can fit the component of u,
             // move the component of u there. Otherwise move to a perfectly balanced assignment
             // respecting the connected components.
+            console.log("Capacity: ", v_capacity - v_server_size);
+            console.log("Size of Cu: ", size_of_u);
             if (v_capacity - v_server_size > size_of_u) {
                 move(cy, u.component().nodes(), server_of_v);
                 server_of_v.data('current_size', v_server_size + size_of_u);
