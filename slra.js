@@ -67,7 +67,7 @@ function slra(cy) {
             // respecting the connected components.
             console.log("Capacity: ", v_capacity - v_server_size);
             console.log("Size of Cu: ", size_of_u);
-            if (v_capacity - v_server_size > size_of_u) {
+            if (v_capacity - v_server_size >= size_of_u) {
                 move(cy, u.component().nodes(), server_of_v);
                 server_of_v.data('current_size', v_server_size + size_of_u);
                 server_of_u.data('current_size', u_server_size - size_of_u);
