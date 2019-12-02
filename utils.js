@@ -33,6 +33,7 @@ function add_random_connections(cy) {
 
 function create_server(cy, num_nodes, free_space) {
     var server = 'server_' + server_id;
+    var colormatch = (server_id == 0) ? 'yellow' : 'black';
     var server_node = {
         data: {
             id: server,
@@ -49,12 +50,13 @@ function create_server(cy, num_nodes, free_space) {
             data: { 
                 id: server + '_node_' + i, 
                 parent: server,
+                colorid: server,
                 used : i < num_nodes
             },
             position: { 
                 x: x_position,
                 y: y_position  
-            } 
+            }
         };
         if (i < num_nodes) {
             nodes.push(node);
@@ -73,7 +75,9 @@ function create_server(cy, num_nodes, free_space) {
     var free_eles = cy.add(free_nodes);
     cy.fit();
     server_eles.style('events','no');
-    node_eles.style('background-color', 'green');
+    node_eles.style('background-color', 'green')
+    node_eles.style('border-color', colormatch);
+    node_eles.style('border-width', 2);
     free_eles.style('background-color', 'grey');
     free_eles.style('events','no');
     increment_stats();
