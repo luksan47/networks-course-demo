@@ -95,6 +95,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
   });
 
+  cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
+    slra_alt(cy, sourceNode, targetNode, addedEles);
+    setTimeout(() => {
+      document.getElementById("slra").disabled = false;
+    }, 1000);
+  })
   var eh = cy.edgehandles();
 
   run(cy, eh);

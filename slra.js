@@ -78,3 +78,44 @@ function slra(cy) {
         }
     });
 }
+
+// Small-Large-Rebalance Alternative Call
+function slra_alt(cy, sourceNode, targetNode, addedEles) {
+    cy.remove(addedEles);
+    var u_size = sourceNode.component().nodes().length;
+    var v_size = targetNode.component().nodes().length;
+    var u_bool = u_size < v_size;
+    cy.add(addedEles);
+    if (u_bool) {
+        u = sourceNode;
+        v = targetNode;
+    } else {
+        u = targetNode;
+        v = sourceNode;
+    }
+    var edge = addedEles;
+    var server_of_u = u.parent();
+    var server_of_v = v.parent();
+    console.log("Servers: ", server_of_u.data('id'), server_of_v.data('id'));
+    // If the two components are not assigned to the same server, we must merge them together.
+    if (server_of_u.data('id') != server_of_v.data('id')) {
+        cy.remove(edge); // Calculate size without the connection
+        var size_of_u = u.component().nodes().length;
+        var v_capacity = server_of_v.data('capacity');
+        var v_server_size = server_of_v.data('current_size');
+        var u_server_size = server_of_u.data('current_size');
+        // If the server of v has available capacity that can fit the component of u,
+        // move the component of u there. Otherwise move to a perfectly balanced assignment
+        // respecting the connected components.
+        console.log("Capacity: ", v_capacity - v_server_size);
+        console.log("Size of Cu: ", size_of_u);
+        if (v_capacity - v_server_size >= size_of_u) {
+            move(cy, u.component().nodes(), server_of_v);
+            server_of_v.data('current_size', v_server_size + size_of_u);
+            server_of_u.data('current_size', u_server_size - size_of_u);
+        } else {
+            //rebalance(cy, u, v);
+        }
+        cy.add(edge); // Reset edge.
+    }
+}
