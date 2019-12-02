@@ -6,9 +6,8 @@ function run_slra(cy) {
 }
 // main function
 function run (cy, eh) {
-  create_server(cy, 8, 3);
-  create_server(cy, 5, 3);
-  create_server(cy, 3, 6);
+  create_server(cy, 10, 5);
+  create_server(cy, 10, 5);
 }
 var cy;
 // initialising the graph
@@ -97,10 +96,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
   cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
     if (document.getElementById('r1').checked) {
-      slra_alt(cy, sourceNode, targetNode, addedEles);
+      slra(cy);
+      //slra_alt(cy, sourceNode, targetNode, addedEles);
     } else {
-      console.log("doing majority weeee");
-      //majv(cy, sourceNode, targetNode, addedElse);
+      majv(cy, sourceNode, targetNode, addedEles);
     }
     
   })

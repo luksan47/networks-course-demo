@@ -10,6 +10,39 @@ function is_smaller(cy, edge) {
 }
 
 var uni_id = 0;
+
+function swap_move(cy, cu, cv, server) {
+    //cu.style({'background-color' : 'red'});
+    //cv.style({'background-color' : 'red'});
+    
+    var cv2 = get_free_nodes(server, cu.length);
+    //var cv2 = server.children().filter(child => -1 == cv.map(function (e) {return e.data('id')}).indexOf(child.data('id')));
+
+    for (let i = 0; i < Math.min(cv2.length, cu.length); i++) {
+        cv2_x = cv2[i].position('x');
+        cv2_y = cv2[i].position('y');
+        cu_x = cu[i].position('x');
+        cu_y = cu[i].position('y');
+        cv2[i].move({'parent': null});
+        cv2[i].animate({
+            position : {x: cu_x, y: cu_y},
+            duration : 1000,
+            complete : function name() {
+                cv2[i].move({'parent' : cu[i].parent().data('id')});
+            }
+        })
+        cu[i].move({'parent': null});
+        cu[i].animate({
+            position : {x: cv2_x, y: cv2_y},
+            duration : 1000,
+            complete : function name() {
+                cu[i].move({'parent' : server.data('id')});
+            }
+        })
+    }
+}
+
+
 function move(cy, nodes, server) {
     nodes.style({'background-color' : 'red'});
     const free_nodes = get_free_nodes(server, nodes.length);
@@ -118,4 +151,23 @@ function slra_alt(cy, sourceNode, targetNode, addedEles) {
         }
         cy.add(edge); // Reset edge.
     }
+}
+
+function majv(cy, sourceNode, targetNode, addedEles) {
+    cy.remove(addedEles);
+    var u_size = sourceNode.component().nodes().length;
+    var v_size = targetNode.component().nodes().length;
+    var u_bool = u_size < v_size;
+    if (u_bool) {
+        u = sourceNode;
+        v = targetNode;
+    } else {
+        u = targetNode;
+        v = sourceNode;
+    }
+    var edge = addedEles;
+    var server_of_u = u.parent();
+    var server_of_v = v.parent();
+    swap_move(cy, u.component().nodes(), v.component().nodes(), server_of_v);
+    cy.add(addedEles);
 }
