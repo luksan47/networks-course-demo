@@ -2,7 +2,7 @@ function add_random_edge(cy) {
   add_random_connections(cy);
 }
 function run_slra(cy) {
-  slra(cy);
+  slra_algorithm(cy);
 }
 // main function
 function run (cy, eh) {
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
     if (document.getElementById('r1').checked) {
-      //slra(cy);
-      slra_alt(cy, sourceNode, targetNode, addedEles);
+      slra_algorithm(cy);
+      //slra_algorithm(cy, sourceNode, targetNode, addedEles);
     } else {
       majv(cy, sourceNode, targetNode, addedEles);
     }
