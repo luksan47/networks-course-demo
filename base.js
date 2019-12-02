@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function(){
         selector: 'edge',
         style: {
           'curve-style': 'bezier',
-          'target-arrow-shape': 'triangle'
         }
       },
 
