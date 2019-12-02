@@ -23,7 +23,7 @@ function move(cy, nodes, server) {
             },
             position: {x:nodes[i].position().x, y:nodes[i].position().y}
         });
-        ele.style({'background-color' : 'blue'})
+        ele.style({'background-color' : 'grey'})
         uni_id++;
         nodes[i].move({'parent' : null});
         nodes[i].animate({
@@ -72,9 +72,59 @@ function slra(cy) {
                 server_of_v.data('current_size', v_server_size + size_of_u);
                 server_of_u.data('current_size', u_server_size - size_of_u);
             } else {
+                setTimeout(() => {
+                    rebalance(cy);
+                }, 1200)
                 //rebalance(cy, u, v);
             }
             cy.add(edge); // Reset edge.
         }
     });
+}
+
+function rebalance(cy) {
+    var all_comp = all_components(cy.nodes().filter( function(elem) {
+        return (elem.data('parent'));
+    }))
+    var n = cy.nodes().filter( function (elem) {
+        return (elem.data('parent'));
+    }).length;
+    var s = [0];
+    var comp = [];
+    find:
+    for(let i = 0; i < all_comp.length; i++) {
+        for(let si = 0; si < s.length; si++) {
+            let ski = all_comp[i].length + si;
+            if ((-1 !== s.indexOf(ski)) && (-1 !== comp.indexOf(i))) {
+                s.push(ski);
+                comp.push(i);
+                if (ski >= n/2) {
+                    break find;
+                }
+            }
+        }
+    }
+
+    let server_0 = cy.nodes().filter( function (elem) {return (elem.data('id') === 'server_0')});
+    let server_1 = cy.nodes().filter( function (elem) {return (elem.data('id') === 'server_1')});
+    for(let i = 0; i < all_comp.length; i++) {
+        if (-1 !== comp.indexOf(i)) {
+            console.log(all_comp[i].length + " nodes moved to server 0");
+            move(cy, all_comp[i], server_0);
+        } else {
+            console.log(all_comp[i].length + " nodes moved to server 1");
+            move(cy, all_comp[i], server_1);
+        }
+    }
+}
+
+function all_components(points) {
+    result = [];
+    while (!(points.empty())) {
+        elem = points.first();
+        elem_cu = elem.component().nodes();
+        result.push(elem_cu);
+        points = (points.diff(elem_cu)).left;
+    }
+    return result;
 }
