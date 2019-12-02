@@ -10,11 +10,12 @@ function is_smaller(cy, edge) {
 }
 
 var uni_id = 0;
-
 function move(cy, nodes, server) {
     nodes.style({'background-color' : 'red'});
     const free_nodes = get_free_nodes(server, nodes.length);
     for (let i = 0; i < nodes.length; i++) {
+        var xi = nodes[i].position('x');
+        var yi = nodes[i].position('y');
         var ele = cy.add({ 
             group: 'nodes', 
             data: { 
@@ -22,7 +23,7 @@ function move(cy, nodes, server) {
                 parent: nodes[i].parent().data('id'),
                 used : false
             },
-            position: {x:nodes[i].position().x, y:nodes[i].position().y}
+            position: {x:xi, y:yi}
         });
         ele.style({'background-color' : 'blue'})
         uni_id++;
@@ -59,6 +60,9 @@ function slra(cy) {
         // If the two components are not assigned to the same server, we must merge them together.
         if (server_of_u.data('id') != server_of_v.data('id')) {
             cy.remove(edge); // Calculate size without the connection
+            //var clean_u = u.component().nodes().filter(node => node.data('parent') !== undefined);
+            //var clean_v = v.component().nodes().filter(node => node.data('parent') !== undefined);
+            //console.log(clean_v);
             var size_of_u = u.component().nodes().length;
             var v_capacity = server_of_v.data('capacity');
             var v_server_size = server_of_v.data('current_size');

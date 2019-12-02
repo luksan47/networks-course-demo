@@ -96,7 +96,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
     if (document.getElementById('r1').checked) {
-      slra(cy);
+      //slra(cy);
+      slra_alt(cy, sourceNode, targetNode, addedEles);
     } else {
       majv(cy, sourceNode, targetNode, addedEles);
     }
