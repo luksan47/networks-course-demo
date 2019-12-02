@@ -11,11 +11,15 @@
     <script src="node_modules/cytoscape-edgehandles/cytoscape-edgehandles.js"></script>
 </head>
 <body>
-    <div id="buttons">
-        <input type="button" id="add_edge" value="Add random edge">
-        <input type="button" id="slra" value="Re-embed servers with SLRA">
+    <div id="main_container">
+        <div id="alg_radio">
+            Re-embedding algorithm:
+            <input type="radio" id="r1" name="alg" value="slra" checked="checked"> Small-Large-Rebalance
+            <input type="radio" id="r2" name="alg" value="majv"> Majority-Voting
+        </div>
+
+        <div id="cy"></div>
     </div>
-    <div id="cy"></div>
     <script src="utils.js"></script>
     <script src="slra.js"></script>
     <script src="base.js"></script>

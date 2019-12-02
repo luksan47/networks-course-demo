@@ -10,10 +10,26 @@ body {
     top: 0;
 }
 
+#main_container {
+    display: grid;
+}
+
 #buttons {
     position: absolute;
     display: flex;
     right: 0;
     bottom: 0;
     z-index: 99999;
+}
+
+#alg_radio {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: #3bdf3bdc;
+    border-style: double;
+    border-width: 2px;
+    width: 180px;
 }
