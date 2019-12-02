@@ -96,10 +96,13 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
   cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
-    slra_alt(cy, sourceNode, targetNode, addedEles);
-    setTimeout(() => {
-      document.getElementById("slra").disabled = false;
-    }, 1000);
+    if (document.getElementById('r1').checked) {
+      slra_alt(cy, sourceNode, targetNode, addedEles);
+    } else {
+      console.log("doing majority weeee");
+      //majv(cy, sourceNode, targetNode, addedElse);
+    }
+    
   })
   var eh = cy.edgehandles();
 
