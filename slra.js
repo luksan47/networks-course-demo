@@ -1,4 +1,9 @@
-// Returns true, if the size of the component of the source is smaller, false otherwise.
+/**
+ * Function that determines which edge vertices have the smaller sized corresponding connected component subgraph.
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} edge The edge we want to analyze
+ * @returns True if the first component has the smaller connected component subgraph.
+ */
 function is_smaller(cy, edge) {
     var u = edge.source();
     var v = edge.target();
@@ -11,6 +16,12 @@ function is_smaller(cy, edge) {
 
 var uni_id = 0;
 
+/**
+ * Function that takes every existing component, and splits them into the two servers given. Only works with L=2 server instance, as defined in the article.
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} nodes_0 The edges that will go into the left server.
+ * @param {*} nodes_1 The edges that will go into the right server.
+ */
 function full_swap(cy, nodes_0, nodes_1) {
     let server_0 = cy.nodes().filter( function (elem) {return (elem.data('id') === 'server_0')});
     let server_1 = cy.nodes().filter( function (elem) {return (elem.data('id') === 'server_1')});
@@ -123,6 +134,12 @@ function full_swap(cy, nodes_0, nodes_1) {
 
 }
 
+/**
+ * Simply moves the given nodes to the given server. Doesn't respect size restrictions.
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} nodes The nodes to be moved.
+ * @param {*} server The destination server.
+ */
 function move(cy, nodes, server) {
     nodes.style({'background-color' : 'red'});
     const free_nodes = get_free_nodes(server, nodes.length);
@@ -152,7 +169,11 @@ function move(cy, nodes, server) {
     }
 }
 
-// Small-Large-Rebalance Algorithm
+/**
+ * The implementation of the Small-Large-Rebalance algorithm. Functions properly for any # of servers, but the respected rebalancing approach is only defined for
+ * L = 2 number of servers.
+ * @param {*} cy The main class for the CytoScape Graph.
+ */
 function slra(cy) {
     var edges = cy.edges();
     edges.forEach(edge => {
@@ -192,6 +213,10 @@ function slra(cy) {
     });
 }
 
+/**
+ * The rebalance algorithm that takes all components and defines which servers they should be put into. Only respects L = 2 number of servers scenario.
+ * @param {*} cy The main class for the CytoScape Graph
+ */
 function rebalance(cy) {
     var all_comp = all_components(cy.nodes().filter( function(elem) {
         return (elem.data('used') == true);
@@ -230,6 +255,11 @@ function rebalance(cy) {
     full_swap(cy, comp_0, comp_1);
 }
 
+/**
+ * Turns a list of nodes into a list of connected components within those nodes. For example, the nodes of an Even Graph returns a list containing the two components.
+ * @param {*} points The nodes to be classified by components.
+ * @returns The list of all disjunctive components in the graph.
+ */
 function all_components(points) {
     result = [];
     while (!(points.empty())) {

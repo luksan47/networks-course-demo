@@ -9,6 +9,10 @@ function increment_stats(){
     x_position += x_distance * 2;
 }
 
+/**
+ * Adds a random connection into the graph, respecting already existing IDs and free spots.
+ * @param {*} cy The main class for the CytoScape Graph
+ */
 function add_random_connections(cy) {
     // Get the nodes of the servers.
     var nodes = cy.filter(function(element, i){
@@ -31,6 +35,12 @@ function add_random_connections(cy) {
     return eles;
 }
 
+/**
+ * Instatiates a server and fills it appropriately with unused and used spaces. Yellow/Black coloring for Majority Voting only respects L = 2 server scenario as defined.
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} num_nodes Number of actual peers / used spaces. The base capacity K of server.
+ * @param {*} free_space Number of unused spaces, a.k.a. the server Augmentation Epsilon.
+ */
 function create_server(cy, num_nodes, free_space) {
     var server = 'server_' + server_id;
     var colormatch = (server_id == 0) ? 'yellow' : 'black';
@@ -83,6 +93,10 @@ function create_server(cy, num_nodes, free_space) {
     increment_stats();
 }
 
+/**
+ * Lists all of the unused spaces, remaining augmentation size, in the given server.
+ * @param {*} server The server in which we need to find the unused spaces in.
+ */
 function get_all_free_nodes(server) {
     var free_nodes = [];
     server.children().forEach(node => {
@@ -94,6 +108,11 @@ function get_all_free_nodes(server) {
     return free_nodes;
 }
 
+/**
+ * Gives the given necessary amount of free spaces remaining in a server, so that only the necessary ones will be filled in.
+ * @param {*} server The server in which we need to find the unused spaces in.
+ * @param {*} num The number of unused spaces we are going to query.
+ */
 function get_free_nodes(server, num) {
     var free_nodes = [];
     server.children().forEach(node => {

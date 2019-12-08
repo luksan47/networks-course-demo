@@ -1,16 +1,32 @@
+/**
+ * Add a random edge into the graph.
+ * @param {*} cy The main class for the CytoScape Graph
+ */
 function add_random_edge(cy) {
   add_random_connections(cy);
 }
+
+/**
+ * Run Small-Large rebalance algorithm.
+ * @param {*} cy The main class for the CytoScape Graph
+ */
 function run_slra(cy) {
   slra(cy);
 }
-// main function
+
+
+/**
+ * Main run function, creates 2 servers.
+ * @param {*} cy 
+ * @param {*} eh 
+ */
 function run (cy, eh) {
   create_server(cy, 10, 5);
   create_server(cy, 10, 5);
 }
+
 var cy;
-// initialising the graph
+// Initialize the graph and set event listeners.
 document.addEventListener('DOMContentLoaded', function(){
 
   cy = window.cy = cytoscape({
@@ -94,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   });
 
+  //On edge created by mouse.
   cy.bind("ehcomplete", function (event, sourceNode, targetNode, addedEles) {
     if (document.getElementById('r1').checked) {
       setTimeout(() => {

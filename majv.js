@@ -1,4 +1,11 @@
 
+/**
+ * Main function for Majority Voting edge input.
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} sourceNode Edge drawn from. Inherited from EHComplete event.
+ * @param {*} targetNode Edge drawn to. Inherited from EHComplete event.
+ * @param {*} addedEles The edge that is created. Inherited from EHComplete event.
+ */
 function majv(cy, sourceNode, targetNode, addedEles) {
     cy.remove(addedEles);
     var u_size = sourceNode.component().nodes().length;
@@ -32,6 +39,11 @@ function majv(cy, sourceNode, targetNode, addedEles) {
     }, 1100);
 }
 
+/**
+ * Pseudo rebalance algorithm defined in article, 
+ * @param {*} cy The main class for the CytoScape Graph
+ * @param {*} cu The main component in which the Majority voting will be executed.
+ */
 function majority_vote(cy, cu) {
     var yellow = 0,
         black = 0,
