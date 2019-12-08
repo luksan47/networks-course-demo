@@ -83,6 +83,17 @@ function create_server(cy, num_nodes, free_space) {
     increment_stats();
 }
 
+function get_all_free_nodes(server) {
+    var free_nodes = [];
+    server.children().forEach(node => {
+        if (!node.data('used')) {
+            free_nodes.push(node);
+        }
+    });
+
+    return free_nodes;
+}
+
 function get_free_nodes(server, num) {
     var free_nodes = [];
     server.children().forEach(node => {

@@ -16,9 +16,6 @@ function majv(cy, sourceNode, targetNode, addedEles) {
     var server_of_v = v.parent();
     var size_of_u = u.component().nodes().length;
     var size_of_v = v.component().nodes().length;
-    console.log("MAJV");
-    console.log(size_of_u);
-    console.log(size_of_v);
     if (server_of_u !== server_of_v) {
         move(cy, u.component().nodes(), server_of_v);
     }
@@ -36,7 +33,6 @@ function majv(cy, sourceNode, targetNode, addedEles) {
 }
 
 function majority_vote(cy, cu) {
-    console.log("VOTING");
     var yellow = 0,
         black = 0,
         first_yellow = -1,
@@ -50,10 +46,6 @@ function majority_vote(cy, cu) {
             black++;
         }
     }
-
-    console.log(cu);
-    console.log(yellow);
-    console.log(black);
 
     if ( (cu[0].data('parent') == 'server_0') && (black > yellow) ) {
         let server_value = cu[first_black].data('colorid');

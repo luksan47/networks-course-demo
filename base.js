@@ -6,8 +6,8 @@ function run_slra(cy) {
 }
 // main function
 function run (cy, eh) {
-  create_server(cy, 10, 10);
-  create_server(cy, 10, 10);
+  create_server(cy, 10, 5);
+  create_server(cy, 10, 5);
 }
 var cy;
 // initialising the graph
